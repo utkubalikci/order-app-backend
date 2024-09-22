@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.pitech.order_app_backend.entities.User;
+import com.pitech.order_app_backend.entities.enums.UserRole;
 import com.pitech.order_app_backend.repositories.IUserRepo;
+import com.pitech.order_app_backend.requests.UserCreateRequest;
 
 @Service
 public class UserService {
@@ -21,8 +23,13 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public User saveUser(User newUser) {
-        return userRepo.save(newUser);
+    public User saveUser(UserCreateRequest newUser) {
+        User user = new User();
+        user.setFullName(newUser.getFullName());
+        user.setUserName(newUser.getUserName());
+        user.setPassword(newUser.getPassword());
+        user.setRole(UserRole.CUSTOMER);
+        return userRepo.save(user);
     }
 
     public User getUserById(Long userId) {

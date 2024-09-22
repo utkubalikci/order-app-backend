@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pitech.order_app_backend.entities.User;
 import com.pitech.order_app_backend.exceptions.UserNotFoundException;
+import com.pitech.order_app_backend.requests.UserCreateRequest;
 import com.pitech.order_app_backend.responses.UserResponse;
 import com.pitech.order_app_backend.services.UserService;
 
@@ -34,7 +35,7 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> createUser(@RequestBody User newUser) {
+	public ResponseEntity<Void> createUser(@RequestBody UserCreateRequest newUser) {
 		User user = userService.saveUser(newUser);
 		if(user != null) 
 			return new ResponseEntity<>(HttpStatus.CREATED);
