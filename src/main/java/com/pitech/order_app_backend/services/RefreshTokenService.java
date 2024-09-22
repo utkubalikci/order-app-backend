@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.pitech.order_app_backend.entities.RefreshToken;
 import com.pitech.order_app_backend.entities.User;
 import com.pitech.order_app_backend.repositories.IRefreshTokenRepo;
 
+@Service
 public class RefreshTokenService {
     @Value("${refresh.token.expires.in}")
 	Long expireSeconds;

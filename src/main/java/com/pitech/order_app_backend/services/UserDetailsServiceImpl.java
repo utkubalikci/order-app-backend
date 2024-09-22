@@ -20,7 +20,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUserName(username);    
+        User user = userRepo.findByUserName(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }    
         return JwtUserDetails.create(user);
     }
 
@@ -28,6 +31,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepo.findById(id).get();
         return JwtUserDetails.create(user);
     }
-    
-    
+
+        
 }

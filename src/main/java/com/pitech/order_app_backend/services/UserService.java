@@ -36,4 +36,12 @@ public class UserService {
         return userRepo.findById(userId).orElse(null);
     }
 
+	public User getOneUserByUserName(String userName) {
+		return userRepo.findByUserName(userName);
+	}
+
+	public void saveOneUser(User user) {
+		userRepo.save(user);
+	}
+
 }
