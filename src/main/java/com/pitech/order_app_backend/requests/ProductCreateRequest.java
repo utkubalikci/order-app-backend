@@ -5,9 +5,7 @@ import java.math.BigDecimal;
 import jakarta.persistence.Lob;
 
 public class ProductCreateRequest {
-    Long id;
-    
-    String name;
+	String name;
 
     int stock;
 
@@ -76,10 +74,6 @@ public class ProductCreateRequest {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 }

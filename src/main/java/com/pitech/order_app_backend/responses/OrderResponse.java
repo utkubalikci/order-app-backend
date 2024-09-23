@@ -8,9 +8,6 @@ import java.util.stream.Collectors;
 import com.pitech.order_app_backend.entities.Order;
 import com.pitech.order_app_backend.entities.enums.OrderStatus;
 
-import lombok.Data;
-
-@Data
 public class OrderResponse {
     Long id;
     List<OrderItemResponse> orderItems;
@@ -26,5 +23,55 @@ public class OrderResponse {
         this.orderDate = order.getOrderDate();
         this.price = order.getPrice();
     }
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public List<OrderItemResponse> getOrderItems() {
+		return orderItems;
+	}
+
+
+	public void setOrderItems(List<OrderItemResponse> orderItems) {
+		this.orderItems = orderItems;
+	}
+
+
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+
+
+	public LocalDateTime getOrderDate() {
+		return orderDate;
+	}
+
+
+	public void setOrderDate(LocalDateTime orderDate) {
+		this.orderDate = orderDate;
+	}
+
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
     
 }

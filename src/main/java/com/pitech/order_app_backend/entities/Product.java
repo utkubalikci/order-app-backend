@@ -38,6 +38,22 @@ public class Product {
 	String description;
 	
 	String imageUrl;
+	
+	
+
+	public Product() {
+		super();
+	}
+
+	public Product(String name, int stock, Category category, BigDecimal price, String description,
+			String imageUrl) {
+		this.name = name;
+		this.stock = stock;
+		this.category = category;
+		this.price = price;
+		this.description = description;
+		this.imageUrl = imageUrl;
+	}
 
 	public String getName() {
 		return name;
