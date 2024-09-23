@@ -54,7 +54,7 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
+        config.addAllowedOrigin("http://localhost:3000/");
         config.addAllowedHeader("*");
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("HEAD");
@@ -76,9 +76,9 @@ public class SecurityConfig {
     		.exceptionHandling().authenticationEntryPoint(handler).and()
     		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
     		.authorizeRequests()
-    		.requestMatchers(HttpMethod.GET, "/posts")
+    		.requestMatchers(HttpMethod.GET, "/products")
     		.permitAll()
-    		.requestMatchers(HttpMethod.GET, "/comments")
+    		.requestMatchers(HttpMethod.GET, "/categories")
     		.permitAll()
     		.requestMatchers("/auth/**")
     		.permitAll()

@@ -40,24 +40,15 @@ public class JwtTokenProvider {
 	}
 	
 	Long getUserIdFromJwt(String token) {
-		// Build the JwtParser
-		JwtParser jwtParser = (JwtParser) Jwts.parser().setSigningKey(APP_SECRET);
+		Claims claims = Jwts.parser().setSigningKey(APP_SECRET).build().parseSignedClaims(token).getPayload();
 
-		// Now you can parse the token
-		Claims claims = jwtParser.parseClaimsJws(token).getBody();
-		
-		//Claims claims = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token).getBody();
 		return Long.parseLong(claims.getSubject());
 	}
 	
 	boolean validateToken(String token) {
+		System.out.println("Token Validation: " + token);
 		try {
-			// Build the JwtParser
-			JwtParser jwtParser = (JwtParser) Jwts.parser().setSigningKey(APP_SECRET);
-
-			// Now you can parse the token
-			Claims claims = jwtParser.parseClaimsJws(token).getBody();
-			//Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token);
+			Jwts.parser().setSigningKey(APP_SECRET).build().parseSignedClaims(token).getPayload();
 			return !isTokenExpired(token);
 		} catch (SignatureException e) {
             return false;
@@ -69,17 +60,17 @@ public class JwtTokenProvider {
             return false;
         } catch (IllegalArgumentException e) {
             return false;
-        }
+        } catch (Exception e) {
+        	System.out.println(e);
+			return false;
+		}
 	}
 
 	private boolean isTokenExpired(String token) {
-		// Build the JwtParser
-		JwtParser jwtParser = (JwtParser) Jwts.parser().setSigningKey(APP_SECRET);
-
-		// Now you can parse the token
-		Claims claims = jwtParser.parseClaimsJws(token).getBody();
-				
+		Claims claims = Jwts.parser().setSigningKey(APP_SECRET).build().parseSignedClaims(token).getPayload();
+		
 		Date expiration = claims.getExpiration();
+		System.out.println("Token bitti mi: " + expiration.before(new Date()));
 		return expiration.before(new Date());
 	}
 

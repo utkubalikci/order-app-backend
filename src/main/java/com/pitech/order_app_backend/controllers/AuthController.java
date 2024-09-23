@@ -1,5 +1,7 @@
 package com.pitech.order_app_backend.controllers;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,16 +9,22 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pitech.order_app_backend.entities.RefreshToken;
 import com.pitech.order_app_backend.entities.User;
+import com.pitech.order_app_backend.entities.enums.UserRole;
 import com.pitech.order_app_backend.requests.RefreshRequest;
+import com.pitech.order_app_backend.requests.UserCreateRequest;
 import com.pitech.order_app_backend.requests.UserRequest;
 import com.pitech.order_app_backend.responses.AuthResponse;
+import com.pitech.order_app_backend.responses.UserResponse;
 import com.pitech.order_app_backend.security.JwtTokenProvider;
 import com.pitech.order_app_backend.services.RefreshTokenService;
 import com.pitech.order_app_backend.services.UserService;
@@ -44,7 +52,8 @@ public class AuthController {
         this.refreshTokenService = refreshTokenService;
     }
 	
-	@PostMapping("/login")
+	@ResponseBody
+	@RequestMapping(value = "/login",method = RequestMethod.POST)
 	public AuthResponse login(@RequestBody UserRequest loginRequest) {
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword());
 		Authentication auth = authenticationManager.authenticate(authToken);
@@ -58,8 +67,9 @@ public class AuthController {
 		return authResponse;
 	}
 	
-	@PostMapping("/register")
-	public ResponseEntity<AuthResponse> register(@RequestBody UserRequest registerRequest) {
+	@ResponseBody
+	@RequestMapping(value = "/register",method = RequestMethod.POST)
+	public ResponseEntity<AuthResponse> register(@RequestBody UserCreateRequest registerRequest) {
 		AuthResponse authResponse = new AuthResponse();
 		if(userService.getOneUserByUserName(registerRequest.getUserName()) != null) {
 			authResponse.setMessage("Username already in use.");
@@ -69,6 +79,8 @@ public class AuthController {
 		User user = new User();
 		user.setUserName(registerRequest.getUserName());
 		user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+		user.setFullName(registerRequest.getFullName());
+		user.setRole(UserRole.CUSTOMER);
 		userService.saveOneUser(user);
 		
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(registerRequest.getUserName(), registerRequest.getPassword());

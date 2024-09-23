@@ -7,6 +7,21 @@ public class UserCreateRequest {
     String fullName;
     String userName;
     String password;
+    
+    
+	public UserCreateRequest(String fullName, String userName, String password) {
+		super();
+		this.fullName = fullName;
+		this.userName = userName;
+		this.password = password;
+	}
+	
+	
+	public UserCreateRequest() {
+		super();
+	}
+
+
 	public String getFullName() {
 		return fullName;
 	}
