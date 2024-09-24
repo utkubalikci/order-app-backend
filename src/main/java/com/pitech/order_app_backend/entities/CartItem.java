@@ -1,7 +1,5 @@
 package com.pitech.order_app_backend.entities;
 
-import java.math.BigDecimal;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -16,17 +14,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class OrderItem {
-
-	@Id
+public class CartItem {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="order_id", nullable=false)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="cart_id", nullable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
-    private Order order;
+    private Cart cart;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="product_id", nullable=false)
@@ -35,28 +32,32 @@ public class OrderItem {
 	private Product product;
 	
 	private int quantity;
-    
-    private BigDecimal price;
 
-	public OrderItem() {
+	public CartItem() {
 		super();
-	}
+	}	
 
-	public OrderItem(Long id, Order order, Product product, int quantity, BigDecimal price) {
+	public CartItem(Cart cart, Product product, int quantity) {
 		super();
-		this.id = id;
-		this.order = order;
+		this.cart = cart;
 		this.product = product;
 		this.quantity = quantity;
-		this.price = price;
 	}
 
-	public Order getOrder() {
-		return order;
+	public Long getId() {
+		return id;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
 
 	public Product getProduct() {
@@ -74,18 +75,5 @@ public class OrderItem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
-	public Long getId() {
-		return id;
-	}
-	
 	
 }
