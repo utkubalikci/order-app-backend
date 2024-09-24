@@ -1,5 +1,7 @@
 package com.pitech.order_app_backend.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.pitech.order_app_backend.entities.Category;
@@ -17,6 +19,10 @@ public class CategoryService {
 
 	public Category getCategoryById(Long categoryId) {
 		return categoryRepo.findById(categoryId).orElse(null);
+	}
+
+	public List<Category> getAllCategories() {
+		return categoryRepo.findAll();
 	}
 	
 	

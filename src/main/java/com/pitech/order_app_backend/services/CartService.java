@@ -1,6 +1,7 @@
 package com.pitech.order_app_backend.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import com.pitech.order_app_backend.entities.User;
 import com.pitech.order_app_backend.repositories.ICartItemRepo;
 import com.pitech.order_app_backend.repositories.ICartRepo;
 import com.pitech.order_app_backend.requests.CartItemRequest;
+import com.pitech.order_app_backend.responses.ProductInCartResponse;
+import com.pitech.order_app_backend.responses.ProductResponse;
 
 @Service
 public class CartService {
@@ -79,6 +82,24 @@ public class CartService {
         }
         cartRepo.save(cart);
         return ResponseEntity.ok().build();
+    }
+
+	public Cart getCartByUserId(Long userId) {
+		return cartRepo.findByUserId(userId).orElse(null);
+	}
+
+    public List<ProductInCartResponse> getProductsInCart(Long userId) {
+        Cart cart = getCartByUserId(userId);
+        List<ProductInCartResponse> products = new ArrayList<>();
+        for (CartItem item : cart.getCartItems()) {
+            // ProductInCartResponse newProduct = new ProductInCartResponse();
+            // newProduct.setId(item.getProduct().getId());
+            // newProduct.setProductName(item.getProduct().getName());
+            // newProduct.setQuantity(item.getQuantity());
+            // newProduct.setPrice(item.getProduct().getPrice());
+            products.add(new ProductInCartResponse(item.getProduct().getId(), item.getProduct().getName(), item.getQuantity(), item.getProduct().getPrice()));
+        }
+        return products;
     }
 
 }
