@@ -78,7 +78,7 @@ public class SecurityConfig {
     		.authorizeRequests()
     		.requestMatchers(HttpMethod.GET, "/products/**")
     		.permitAll()
-    		.requestMatchers(HttpMethod.GET, "/categories")
+    		.requestMatchers(HttpMethod.GET, "/category/**")
     		.permitAll()
     		.requestMatchers("/auth/**")
     		.permitAll()

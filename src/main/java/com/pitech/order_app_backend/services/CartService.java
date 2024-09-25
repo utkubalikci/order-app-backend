@@ -102,4 +102,18 @@ public class CartService {
         return products;
     }
 
+	public ResponseEntity<Void> removeCartByUserId(Long userId) {
+		Cart cartToDelete = cartRepo.findByUserId(userId).orElse(null);
+		if (cartToDelete == null) {
+			return ResponseEntity.notFound().build();
+		}
+		cartRepo.delete(cartToDelete);
+		return ResponseEntity.ok().build();
+	}
+
+	public ResponseEntity<Void> removeCart(Cart cart) {
+		cartRepo.delete(cart);
+		return ResponseEntity.ok().build();
+	}
+
 }

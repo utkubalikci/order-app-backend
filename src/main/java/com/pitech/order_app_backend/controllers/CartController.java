@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pitech.order_app_backend.entities.Cart;
@@ -46,5 +47,15 @@ public class CartController {
     @DeleteMapping("/remove")
     public ResponseEntity<Void> removeFromCart(@RequestBody CartItemRequest cartItemRequest) {
         return cartService.removeFromCart(cartItemRequest);
+    }
+    
+    @DeleteMapping("/remove/{userId}")
+    public ResponseEntity<Void> removeCartByUserId(@PathVariable Long userId){
+    	return cartService.removeCartByUserId(userId);
+    }
+    
+    @DeleteMapping("/removeCart")
+    public ResponseEntity<Void> removeCart(@RequestBody Cart cart){
+    	return cartService.removeCart(cart);
     }
 }

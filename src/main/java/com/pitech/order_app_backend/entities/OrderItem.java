@@ -42,9 +42,8 @@ public class OrderItem {
 		super();
 	}
 
-	public OrderItem(Long id, Order order, Product product, int quantity, BigDecimal price) {
+	public OrderItem(Order order, Product product, int quantity, BigDecimal price) {
 		super();
-		this.id = id;
 		this.order = order;
 		this.product = product;
 		this.quantity = quantity;

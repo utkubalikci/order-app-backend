@@ -30,6 +30,11 @@ public class ProductController {
         return productService.getAllProducts().stream().map(p -> new ProductResponse(p)).toList();
     }
 
+    @GetMapping("/category/{categoryId}")
+    public List<ProductResponse> getProductsByCategoryId(@PathVariable Long categoryId){
+    	return productService.getProductsByCategoryId(categoryId);
+    }
+    
     @GetMapping("/{productId}")
     public ProductResponse getOneProduct(@PathVariable Long productId) {
         return new ProductResponse(productService.getProductById(productId));

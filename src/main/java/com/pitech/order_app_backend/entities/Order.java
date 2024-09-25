@@ -46,6 +46,14 @@ public class Order {
 	
 	private BigDecimal price;
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public List<OrderItem> getOrderItems() {
 		return orderItems;
 	}
@@ -74,17 +82,12 @@ public class Order {
 		return id;
 	}
 
-	private void setPrice(BigDecimal price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
 	public BigDecimal getPrice() {
-		BigDecimal total = BigDecimal.ZERO;
-        for (OrderItem item : orderItems) {
-            total = total.add(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
-        }
-        setPrice(total);
-        return total;
+		return price;
 	}
 	
 	
