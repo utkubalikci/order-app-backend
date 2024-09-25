@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -46,7 +45,6 @@ public class JwtTokenProvider {
 	}
 	
 	boolean validateToken(String token) {
-		System.out.println("Token Validation: " + token);
 		try {
 			Jwts.parser().setSigningKey(APP_SECRET).build().parseSignedClaims(token).getPayload();
 			return !isTokenExpired(token);
@@ -70,7 +68,6 @@ public class JwtTokenProvider {
 		Claims claims = Jwts.parser().setSigningKey(APP_SECRET).build().parseSignedClaims(token).getPayload();
 		
 		Date expiration = claims.getExpiration();
-		System.out.println("Token bitti mi: " + expiration.before(new Date()));
 		return expiration.before(new Date());
 	}
 

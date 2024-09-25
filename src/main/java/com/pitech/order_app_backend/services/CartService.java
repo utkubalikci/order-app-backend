@@ -14,7 +14,6 @@ import com.pitech.order_app_backend.repositories.ICartItemRepo;
 import com.pitech.order_app_backend.repositories.ICartRepo;
 import com.pitech.order_app_backend.requests.CartItemRequest;
 import com.pitech.order_app_backend.responses.ProductInCartResponse;
-import com.pitech.order_app_backend.responses.ProductResponse;
 
 @Service
 public class CartService {
@@ -72,7 +71,6 @@ public class CartService {
         if (cart == null) {
             return ResponseEntity.notFound().build();
         }
-        System.out.println("Service Delete");
         for (CartItem item : cart.getCartItems()) {
             if (item.getProduct().getId().equals(cartItemRequest.getProductId())) {
                 cart.getCartItems().remove(item);

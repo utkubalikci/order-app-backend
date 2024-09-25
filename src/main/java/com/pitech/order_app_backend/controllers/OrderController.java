@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pitech.order_app_backend.entities.Cart;
@@ -29,7 +28,6 @@ public class OrderController {
 	
 	@GetMapping("/user/{userId}")
 	public List<OrderResponse> getOrdersByUserId(@PathVariable Long userId){
-		System.out.println("Get Orders By User Id");
 		return orderService.getOrdersByUserId(userId);
 	}
 
@@ -40,7 +38,6 @@ public class OrderController {
 	
 	@PostMapping("/createByUserId/{userId}")
 	public ResponseEntity<Void> createOrderByUserId(@PathVariable Long userId){
-		System.out.println("order controllerrrrr");
 		return orderService.createOrderByUserId(userId);
 	}
 	
