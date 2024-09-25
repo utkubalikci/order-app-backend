@@ -32,6 +32,9 @@ public class ProductService {
 	}
 
 	public Product addProduct(ProductCreateRequest productCreateRequest) {
+		if (productCreateRequest == null || productCreateRequest.getCategoryId() == null || productCreateRequest.getName() == null || productCreateRequest.getPrice() == null  || productCreateRequest.getDescription() == null || productCreateRequest.getImageUrl() == null) {
+			return null;
+		}
 		Category category = categoryService.getCategoryById(productCreateRequest.getCategoryId());
 		Product newProduct = new Product();
 		newProduct.setName(productCreateRequest.getName());
