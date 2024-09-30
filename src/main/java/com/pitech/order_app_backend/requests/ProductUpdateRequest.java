@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import jakarta.persistence.Lob;
 
 public class ProductUpdateRequest {
+	Long id;
+	
     String name;
 
     int stock;
@@ -18,15 +20,24 @@ public class ProductUpdateRequest {
     
     String imageUrl;
 
-	public ProductUpdateRequest(String name, int stock, Long categoryId, BigDecimal price, String description,
+	public ProductUpdateRequest(Long id, String name, int stock, Long categoryId, BigDecimal price, String description,
 			String imageUrl) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.stock = stock;
 		this.categoryId = categoryId;
 		this.price = price;
 		this.description = description;
 		this.imageUrl = imageUrl;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {

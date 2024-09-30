@@ -9,7 +9,10 @@ import com.pitech.order_app_backend.entities.Category;
 import com.pitech.order_app_backend.entities.Product;
 import com.pitech.order_app_backend.repositories.IProductRepo;
 import com.pitech.order_app_backend.requests.ProductCreateRequest;
+import com.pitech.order_app_backend.requests.ProductUpdateRequest;
 import com.pitech.order_app_backend.responses.ProductResponse;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ProductService {
@@ -53,6 +56,17 @@ public class ProductService {
 			productResponses.add(new ProductResponse(product));
 		}
 		return productResponses;
+	}
+
+	public ProductResponse updateProduct(ProductUpdateRequest productReq) {
+		Product product = productRepo.findById(productReq.getId()).orElseThrow(() -> new EntityNotFoundException("Product not found"));
+		product.setName(productReq.getName());
+        product.setStock(productReq.getStock());
+        product.setPrice(productReq.getPrice());
+        product.setDescription(productReq.getDescription());
+        product.setImageUrl(productReq.getImageUrl());
+        productRepo.save(product);
+		return new ProductResponse(product);
 	}
 	
 }

@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pitech.order_app_backend.entities.Product;
 import com.pitech.order_app_backend.requests.ProductCreateRequest;
+import com.pitech.order_app_backend.requests.ProductUpdateRequest;
 import com.pitech.order_app_backend.responses.ProductResponse;
 import com.pitech.order_app_backend.services.ProductService;
 
@@ -42,5 +44,10 @@ public class ProductController {
     @PostMapping("/add")
     public Product addProduct(@RequestBody ProductCreateRequest productCreateRequest) {
     	return productService.addProduct(productCreateRequest);
+    }
+    
+    @PutMapping("/edit")
+    public ProductResponse updateProduct(@RequestBody ProductUpdateRequest productReq) {
+    	return productService.updateProduct(productReq);
     }
 }
